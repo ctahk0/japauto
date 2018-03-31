@@ -1,154 +1,194 @@
-.glavni {
-	padding: 10px;
-	background-color: lightgrey;
-	width: 1200px;
-	height: 600px;
-	position: absolute;
-}
-
-.header
-{
-    height:55px;
-	width: 1100px;
-    background-color: #617799;
-}
-.zlijevo {
-  width: 500px;
-  height: 80px;
-  background-color: #eee;
-  position: relative;
-  float: left;
-}
-.zdesno {
-  height: 80px;
-  background-color: #eee;
-  position: relative;
-  float: right;
-}
-.tijelo {
-	/*top: 0px;*/
-  margin-top: 10px;
-	/*padding: 10px;*/
-	width: 1200px;
-	height: 510px;
-	overflow: auto;
-	background-color: #617799;
-	position: relative;
-  float: left;
-}
-
-#response {
-  margin-left: 400px;
-  top: 130px;
-  width: 800px;
-  height: 450px;
-  margin-top: 10px;
-  overflow: auto;
-  position: absolute;
-  background-color: lightgrey;
-  float: right;
-  box-shadow: 5px 5px 15px #000;
-}
-#selkupac {
-  text-align: left;
-}
-table.blueTable {
-  border: 1px solid #1C6EA4;
-  background-color: #EEEEEE;
-  width: 100%;
-  text-align: left;
-  border-collapse: collapse;
-}
-table.blueTable td, table.blueTable th {
-  border: 1px solid #AAAAAA;
-  padding: 3px 2px;
-}
-table.blueTable tbody td {
-  font-size: 13px;
-}
-table.blueTable tr:nth-child(even) {
-  background: #D0E4F5;
-}
-table.blueTable thead {
-  background: #1C6EA4;
-  background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
-  background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
-  background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
-  border-bottom: 2px solid #444444;
-
-}
-table.blueTable thead th {
-  font-size: 15px;
-  font-weight: bold;
-  color: #FFFFFF;
-  border-left: 2px solid #D0E4F5;
-}
-table.blueTable thead th:first-child {
-  border-left: none;
-}
-
-.blueTable tr:hover {
-    background-color: #ccc;
-    cursor: pointer; 
-}
-
-/*table tbody, table thead
-{
-    display: block;
-}
-
-table tbody 
-{
-   overflow: auto;
-   height: 500px;
-}*/
-
-#selkupac {
-  border-bottom: 1px solid gray;
-}
-
-table.greyGridTable {
-  border: 2px solid #FFFFFF;
-  width: 100%;
-  text-align: center;
-  border-collapse: collapse;
-}
-table.greyGridTable td, table.greyGridTable th {
-  border: 1px solid #FFFFFF;
-  padding: 3px 4px;
-}
-table.greyGridTable tbody td {
-  font-size: 13px;
-}
-table.greyGridTable td:nth-child(even) {
-  background: #EBEBEB;
-}
-table.greyGridTable thead {
-  font-weight: bold;
-  background: #FFFFFF;
-  border-bottom: 4px solid #333333;
-}
-table.greyGridTable thead th {
-  font-size: 15px;
-  font-weight: bold;
-  color: #333333;
-  text-align: center;
-  border-left: 2px solid #333333;
-}
-table.greyGridTable thead th:first-child {
-  border-left: none;
-}
-
-table.greyGridTable tfoot {
-  background: #FFFFFF;
-  font-size: 14px;
-  font-weight: bold;
-  color: #333333;
-  border-top: 4px solid #333333;
-}
-table.greyGridTable tfoot td:nth-child(odd) {
-  background: #FFFFFF;
-}
-table.greyGridTable tfoot td:nth-child(even) {
-  background: #FFFFFF;
+.glavni {
+	padding: 10px;
+	background-color: lightgrey;
+	width: 1200px;
+	height: 600px;
+	position: absolute;
+}
+
+.header
+{
+    height:55px;
+	width: 1100px;
+    background-color: #617799;
+}
+.zlijevo {
+  width: 500px;
+  height: 80px;
+  background-color: #eee;
+  position: relative;
+  float: left;
+}
+.zdesno {
+  height: 80px;
+  background-color: #eee;
+  position: relative;
+  float: right;
+}
+.tijelo {
+	/*top: 0px;*/
+  margin-top: 10px;
+	/*padding: 10px;*/
+	width: 1200px;
+	height: 510px;
+	overflow: auto;
+	background-color: #617799;
+	position: relative;
+  float: left;
+}
+
+#response {
+  margin-left: 400px;
+  top: 130px;
+  width: 800px;
+  height: 450px;
+  margin-top: 10px;
+  overflow: auto;
+  position: absolute;
+  background-color: lightgrey;
+  float: right;
+  box-shadow: 5px 5px 15px #000;
+
+/*  border: 2px solid Black;
+  padding: 15px 15px 15px 15px;
+  margin: 20px 20px 20px 20px;
+  background: #A4D3EE;
+  overflow: visible;
+  box-shadow: 5px 5px 2px #888888;
+  position: relative;*/
+}
+#selkupac {
+  text-align: left;
+}
+#x {
+    position: absolute;
+    background: red;
+    color: white;
+    top: 0px;
+    right: 0px;
+}
+table.blueTable {
+  border: 1px solid #1C6EA4;
+  background-color: #EEEEEE;
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+table.blueTable td, table.blueTable th {
+  border: 1px solid #AAAAAA;
+  padding: 3px 2px;
+}
+table.blueTable tbody td {
+  font-size: 13px;
+}
+table.blueTable tr:nth-child(even) {
+  background: #D0E4F5;
+}
+table.blueTable thead {
+  background: #1C6EA4;
+  background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  border-bottom: 2px solid #444444;
+
+}
+table.blueTable thead th {
+  font-size: 15px;
+  font-weight: bold;
+  color: #FFFFFF;
+  border-left: 2px solid #D0E4F5;
+}
+table.blueTable thead th:first-child {
+  border-left: none;
+}
+
+.blueTable tr:hover {
+    background-color: #ccc;
+    cursor: pointer; 
+}
+
+/*table tbody, table thead
+{
+    display: block;
+}
+
+table tbody 
+{
+   overflow: auto;
+   height: 500px;
+}*/
+
+#selkupac {
+  border-bottom: 1px solid gray;
+}
+
+table.greyGridTable {
+  border: 2px solid #FFFFFF;
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+table.greyGridTable td, table.greyGridTable th {
+  border: 1px solid #FFFFFF;
+  padding: 3px 4px;
+}
+table.greyGridTable tbody td {
+  font-size: 13px;
+}
+table.greyGridTable td:nth-child(even) {
+  background: #EBEBEB;
+}
+table.greyGridTable thead {
+  font-weight: bold;
+  background: #FFFFFF;
+  border-bottom: 4px solid #333333;
+}
+table.greyGridTable thead th {
+  font-size: 15px;
+  font-weight: bold;
+  color: #333333;
+  text-align: center;
+  border-left: 2px solid #333333;
+}
+table.greyGridTable thead th:first-child {
+  border-left: none;
+}
+
+table.greyGridTable tfoot {
+  background: #FFFFFF;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333333;
+  border-top: 4px solid #333333;
+}
+table.greyGridTable tfoot td:nth-child(odd) {
+  background: #FFFFFF;
+}
+table.greyGridTable tfoot td:nth-child(even) {
+  background: #FFFFFF;
+}
+
+/*.dataTables_wrapper .myfilter .dataTables_filter {
+    float:left
+}
+.dataTables_wrapper .mylength .dataTables_length {
+    float:right
+}
+
+.dataTables_wrapper { font-size: 16px }
+*/
+#example_wrapper {
+  padding: 10px;
+  /*background-color: lightgrey;*/
+  max-width: 1200px;
+  /*height: 800px;*/
+  /*position: absolute;*/
+}
+
+.dataTables_wrapper .dataTables_length {
+    float: right;
+}
+.dataTables_wrapper .dataTables_filter {
+    float: left;
+    text-align: right;
 }

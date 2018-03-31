@@ -1,120 +1,151 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<link rel="stylesheet" href="css/stilovi.css"/>
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-		<!-- <script src="jquery.js" type="text/javascript"></script> -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-	<title>Kupci</title>
-	</head>
-	<body>
-		<div id="header">
-			<div id="navbar">
-				<!-- Ako zatreba eventualno neki Meni -->
-			</div>
-		</div>
-			
-	<div class="glavni">
-		<div class="zlijevo">
-			<h3 id="h2search">Pretraga: <input class="search" id="txtsearch"></h1>
-		</div>
-		<div class="zdesno">
-			<p>Datum: <input type="text" id="datepicker"></p>
-		</div>
-		<div class="tijelo">
-			<table class="blueTable">
-				<thead><tr><th>Naziv</th><th>Adresa</th><th>Grad</th><th>Lokacija</th></tr></thead>
-				<tbody id="tabelabody"></tbody>
-			</table>
-		</div>
-		
-		<div id="response">
-			<table class="greyGridTable">
-				<thead><tr><td id="selkupac" colspan="6"></td></tr><tr><td colspan="6"></td></tr><tr><th>Datum</th><th>Dokument</th><th>Valuta/Izvod</th><th>Duguje</th><th>Potrazuje</th><th>Saldo</th></tr></thead>
-				<tbody id="tabelabody1"></tbody>
-				<tfoot><tr><td id="total" colspan="3">TOTAL</td><td id="tduguje"></td><td id="tpotrazuje"></td><td id="totsaldo"></td></tr></tfoot>
-			</table>
-		</div>
-	</div>
-
-	<script>
-		(function() {
-
-			$("#datepicker").datepicker({
-				firstDay: 1
-			});
-			$( "#datepicker" ).datepicker( "option", "dateFormat", "dd.mm.yy" );
-
-			$('#response').hide();
-		  	$('#txtsearch').val('');
-			//================================== Vraca sve kupce u json string ========================================================================
-		  	$.getJSON({
-		  		url: "http://localhost/_dev/japauto/show.php",
-		    	format: "json"
-		  		})
-			.done(function( result ) {
-				$.each(result, function(i, field){
-				    var tbl = '<tr><td>' + (field.naziv) + '</td><td>' + (field.adresa) + '</td><td>' + (field.grad) + '</td><td>' + (field.lokacija) + '</td></tr>';
-					$("#tabelabody").append(tbl);
-				});
-			});
-			//=========================================================================================================================================
-			$('#txtsearch').keyup(function () {
-		        let value = $(this).val().toLowerCase();
-		        $("#tabelabody tr").filter(function() {
-			      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-			    });
-		    });
-			
-			$('.blueTable').on('click', 'tr', function(event){
-				$("#tabelabody1").empty();
-				var tableData = $(this).find("td:first").text();
-			    console.log(tableData);
-
-			$.getJSON({
-		        type: "POST",
-		        format: "json",
-		        url: "kupac.php", 
-		        data: {kupac: tableData}
-		        })
-		    .done(function(result){
-		    	$('#response').show();
-		    	var sumduguje = 0;
-		    	var sumpotrazuje = 0;
-		    	var sumsaldo = 0;
-		        $.each(result, function(i, field){
-		            sumduguje += Number(field.duguje);
-		            sumpotrazuje += Number(field.potrazuje);
-		            sumsaldo = sumduguje - sumpotrazuje;
-		            //console.log(sum);
-		            var dat = $.datepicker.formatDate('dd.mm.yy', new Date(field.datum));
-				    var tbl = '<tr><td>' + (dat) + '</td><td>' + (field.dokument) + '</td><td>' + (field.valutaizvod)+ '</td><td>' + (field.duguje) + '</td><td>' + (field.potrazuje) + '</td><td id="tsaldo">' + Number(field.lsaldo).toFixed(2) + '</td></tr>';
-					$("#tabelabody1").append(tbl);
-					$("#selkupac").html(field.jib + ', ' + field.naziv + ', ' + field.grad);
-					
-					$("#tduguje").html(sumduguje.toFixed(2));
-					$("#tpotrazuje").html(sumpotrazuje.toFixed(2));
-					$("#totsaldo").html(sumsaldo.toFixed(2));
-				});
-				
-		    })
-		    .fail(function() {
-		         
-		        // just in case posting your form failed
-		        alert( "Posting failed." );
-		             
-		    });
-		 
-		        // to prevent refreshing the whole page page
-		        // return false;
-		        
-			});
-
-
-
-		})();
-	</script>
-
-	</body>
-</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Stanje magacina</title>
+  <link rel="shortcut icon" type="image/png" href="./img/fav.png"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="css/stilovi.css"/>
+<!-- Navigacija -->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a href="#" class="pull-left"><img src="./img/logo.png"></a>
+          <a class="nav-item nav-link active" href="index.html">Stanje magacina<span class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link" href="kupci.html">Kupci</a>
+          <!-- <a class="nav-item nav-link disabled" href="#">Disabled</a> -->
+        </div>
+      </div>
+    </nav>
+<!-- Navigacija END -->
+</head>
+<body>
+    <div id="tablecontainer">   
+    	<table id="example" class="compact hover row-border stripe" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+
+                </tr>
+            </thead>
+            <tbody>
+                <!-- <tr><td id = "DT_RowId"></td><td></td><td></td></tr> -->
+            </tbody>
+        </table>
+    </div>
+
+<div id="update">
+
+</div>
+
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+
+$(function () {
+
+	var table = 
+    $('#example').DataTable( {
+                // dom:"<'myfilter'f><'mylength'l>t",
+                "lengthMenu": [[10, 50, 100, -1], [10, 50, 100, "All"]],
+                "language": {
+                    "decimal": ",",
+                    "thousands": "."
+                },
+                "iDisplayLength": 100,
+                scrollY: 600,
+                "scrollX": true,
+                // paging: false,
+                // "aaData": msg,
+                "processing":true,
+                "columnDefs": [
+                    { "sClass": "dt-body-right", "targets": [5, 6] },
+                    { "sClass": "dt-body-center", "targets": [3, 4] }
+                  ],
+            ajax: {url:'stanje_p.php',
+                    dataSrc: ''},
+            columns: [
+                      { "sTitle": "Sifra",  "mData": "sifra","defaultContent": "" },
+                      { "sTitle": "Naziv",  "mData": "naziv","defaultContent": "" },
+                      { "sTitle": "JM",  "mData": "jm","defaultContent": "" },
+                      { "sTitle": "Kol. Trn",  "mData": "kolicinatrn","defaultContent": "" },
+                      { "sTitle": "Kol. Petr",  "mData": "kolicinapetricevac","defaultContent": "" },
+                      { "sTitle": "MPC",  "mData": "mpc","defaultContent": "" },
+                      { "sTitle": "PPC",  "mData": "ppc","defaultContent": "" }
+                    ]
+        } );
+
+
+setInterval( function () {
+  $('#example').DataTable().ajax.reload();
+  $('#update').load('updated.php');
+}, 300000 );
+
+
+
+	
+});
+</script>
+
+</body>
+</html>
+
+<!-- 		$('#example tbody').on( 'click', 'tr', function () {
+		  var rowData = table.row( this ).data();
+		  // ... do something with `rowData`
+		  alert(rowData);
+		} ); -->
+
+<!-- 
+$(document).ready(function() {
+    var table = 
+    $('#example').DataTable({
+        "retrieve": true, 
+        "processing" : true,
+        "ajax" : {
+            "url" : "https://api.myjson.com/bins/14t4g",
+            dataSrc : ''
+        },
+        "columns" : [ {
+            "data" : "id"
+        }, {
+            "data" : "name", 
+            "render": function (data, type, row) {
+            	return BuildDropdown(data);
+            }
+        }, {
+            "data" : "lat"
+        }, {
+            "data" : "lon"
+        }]
+    });
+    
+    SetEvents();
+});
+
+function SetEvents()
+{
+  table = $('#example');
+  table.on('change', 'td', function (event) { UpdateCellValue(this) });
+}
+
+function UpdateCellValue(cellChanged)
+{
+  theGrid = $('#example').DataTable();
+  
+  // Works, but not what I want since it calls "render" function:
+   theGrid.cell($(cellChanged)).data(cellChanged.children[0].value).draw();
+  
+  // What I'd like to work:
+  // var currentRowData = theGrid.row($(cellChanged).closest('tr')).data();
+  // var columnIndexChanged = $(cellChanged).index();
+  // currentRowData[columnIndexChanged] = cellChanged.children[0].value;
+} -->
