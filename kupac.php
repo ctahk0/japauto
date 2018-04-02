@@ -9,14 +9,13 @@ if( isset( $_POST['datum'] ) )
 {
 
 
-
 	$name = $_POST['kupac'];
 
 	$datum = $_POST['datum'];
 
 
 
-	require('conf.php');
+	include_once('conf.php');
 
 
 
@@ -28,7 +27,10 @@ if( isset( $_POST['datum'] ) )
 
 	}
 
-
+	if (!mysqli_set_charset($conn, "utf8")) {
+                printf("Error loading character set utf8: %s\n", mysqli_error($conn));
+                exit();
+    }
 
 	// SELECT *, @curRank := @curRank + saldo AS lsaldo 
 

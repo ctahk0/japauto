@@ -9,7 +9,7 @@
 
 
 	// $name = $_POST['user_name'];
-	require('conf.php');
+	include_once('conf.php');
 
 
 
@@ -21,7 +21,10 @@
 
 	}
 
-
+	if (!mysqli_set_charset($conn, "utf8")) {
+                printf("Error loading character set utf8: %s\n", mysqli_error($conn));
+                exit();
+    }
 
 	// $sql = "SELECT * FROM tblkarticekupaca WHERE naziv LIKE '%cat%'";
 
